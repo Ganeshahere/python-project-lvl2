@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "Ganeshahere_gendiff_lvl2"
-version = "0.1.1"
+version = "0.1.2"
 description = "This is second python project at my studying at hexlet"
 authors = ["Ganeshahere <jamper1488@gmail.com>"]
 packages = [
