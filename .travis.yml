@@ -1,0 +1,11 @@
+language: python
+python: 3.8
+
+install: make
+
+before install:
+        - pip install poetry 
+
+script: 
+        - make test
+        - make lint
