@@ -7,6 +7,7 @@ import argparse
 
 from gendiff.generator import generate_diff
 
+
 def main():
     """Print diff between two files."""
     parser = argparse.ArgumentParser(description='Generate diff')

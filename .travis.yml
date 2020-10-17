@@ -3,7 +3,7 @@ python: 3.8
 
 install: make
 
-before install:
+before_install:
         - pip install poetry 
 
 script: 

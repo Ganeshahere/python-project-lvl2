@@ -19,7 +19,7 @@ def read_file(file_name):
 def parse_input(file_data, file_type):
     """Parse input data into appropriate format."""
     mapping = {
-            'json':lambda file_data: json.loads(file_data),
+            'json': lambda file_data: json.loads(file_data),
             }
     return mapping[file_type](file_data)
 
