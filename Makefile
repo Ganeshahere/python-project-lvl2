@@ -9,10 +9,10 @@ selfcheck:
 
 
 check:	
-	@selfcheck test lint
+	@test lint
 
 
 build: check
 	@poetry build
 
-.PHONY: install test lint selfcheck check build
+.PHONY: install test lint check build
