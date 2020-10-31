@@ -1,29 +1,45 @@
-# -*- conding: utf-* -*-
+# -*- coding: utf-* -*-
 
 """JSON files diff test."""
 
 import pytest
 
-from gendiff.comparator import diff, generate_diff
+from gendiff.comparator import diff_dict, generate_diff
 
 
 def test_dict_diff():
     first = {'host': 'hexlet.io', 'timeout': 50, 'proxy': '123.234.53.22'}
     second = {'timeout': 20, 'verbose': True, 'host': 'hexlet.io'}
-    difference = diff(first, second)
+    difference = diff_dict(first, second)
 
-    assert difference == {
+    assert diff == {
         'added': {'verbose': True},
         'removed': {'proxy': '123.234.53.22'},
         'changed': {'timeout': {'new': 20, 'old': 50}},
-        'unchanged': {'host': 'hexlet.io'}
+        'unchanged': {'host': 'hexlet.io'},
     }
 
 
-def test_message_from_diff(expected_message):
+def test_json_difference(expected_message):
     difference = generate_diff(
         'tests/fixtures/before.json',
         'tests/fixtures/after.json'
+    )
+    assert difference.split('\n') == expected_message
+
+
+def test_yaml_difference(expected_message):
+    difference = generate_diff(
+        'tests/fixtures/before.yaml',
+        'tests/fixtures/after.yaml',
+    )
+    assert difference.split('\n') == expected_message
+
+
+def test_json_yaml_diff(expected_message):
+    difference = generate_diff(
+        'tests/fixtures/before.json',
+        'tests/fixtures/after.yaml',
     )
     assert difference.split('\n') == expected_message
 

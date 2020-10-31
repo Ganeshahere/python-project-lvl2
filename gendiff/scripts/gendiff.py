@@ -5,7 +5,7 @@
 
 import argparse
 
-from gendiff.comparator import generate_diff
+from gendiff import comparator
 
 
 def main():
@@ -14,17 +14,16 @@ def main():
             prog='gendiff',
             usage='%(prog)s [-h] [-f FORMAT] first_file second_file',
             description='Generate diff')
-    parser.add_argument('first_file', metavar='first_file', type=str)
-    parser.add_argument('second_file', metavar='second_file', type=str)
+    parser.add_argument('first_file', metavar='first_file')
+    parser.add_argument('second_file', metavar='second_file')
     parser.add_argument(
             '-f',
             '--format',
-            action='store',
             help='set format of output',
             )
     args = parser.parse_args()
-
-    generate_diff(args.first_file, args.second_file, args.format)
+    diff = comparator.generate_diff(args.first_file, args.second_file)
+    print(diff)
 
 
 if __name__ == '__main__':
