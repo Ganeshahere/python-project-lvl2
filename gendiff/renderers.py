@@ -6,8 +6,8 @@ from gendiff.nodetypes import ADDED, CHANGED, PARENT, REMOVED, UNCHANGED
 
 
 def build(diff):
-    """Build message difference from diff_dict function result."""
-    return '{{\'n{lines}\n}}'.format(
+    """Plain message diff from dict_diff function result."""
+    return '{{\n{lines}\n}}'.format(
         lines=_build_message_lines(diff),
     )
 
@@ -23,43 +23,43 @@ def _build_message_lines(diff, depth=0):
                 key=key,
                 prefix=_get_prefix(depth),
             )
-            if node['type'] == CHANGED:
-                line = '{added}\n{removed}'.format(
-                    added=_get_build_message(
-                        key=key,
-                        symbol='+',
-                        value=node['value'],
-                        depth=depth,
-                    ),
-                    removed=_get_build_message(
-                        symbol='-',
-                        key=key,
-                        value=node['oldValue'],
-                        depth=depth
-                    ),
-                )
-            if node['type'] == UNCHANGED:
-                line = _get_build_message(
-                    symbol=' ',
-                    key=key,
-                    value=node['value'],
-                    depth=depth,
-                )
-            if node['type'] == ADDED:
-                line = _get_build_message(
+        if node['type'] == CHANGED:
+            line = '{added}\n{removed}'.format(
+                added=_get_build_message(
                     symbol='+',
                     key=key,
                     value=node['value'],
                     depth=depth,
-                )
-            if node['type'] == REMOVED:
-                line = _get_build_message(
+                ),
+                removed=_get_build_message(
                     symbol='-',
                     key=key,
-                    value=node['value'],
+                    value=node['oldValue'],
                     depth=depth,
-                )
-            lines.append(line)
+                ),
+            )
+        if node['type'] == UNCHANGED:
+            line = _get_build_message(
+                symbol=' ',
+                key=key,
+                value=node['value'],
+                depth=depth,
+            )
+        if node['type'] == ADDED:
+            line = _get_build_message(
+                symbol='+',
+                key=key,
+                value=node['value'],
+                depth=depth,
+            )
+        if node['type'] == REMOVED:
+            line = _get_build_message(
+                symbol='-',
+                key=key,
+                value=node['value'],
+                depth=depth,
+            )
+        lines.append(line)
     return '\n'.join(lines)
 
 
