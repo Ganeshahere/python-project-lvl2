@@ -47,7 +47,7 @@ def test_dict_diff():
         'test': 'test',
         'foo': 'baz',
     }
-    diff = dict_diff(first, second)
+    diff = diff_dict(first, second)
 
     assert diff == {
        'common': {
