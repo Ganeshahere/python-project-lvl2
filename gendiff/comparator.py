@@ -3,7 +3,7 @@
 
 """Functions to build difference."""
 
-from gendiff import formatters, parsers
+from gendiff import formatters, parsers, renderers
 from gendiff.nodetypes import ADDED, CHANGED, PARENT, REMOVED, UNCHANGED
 
 

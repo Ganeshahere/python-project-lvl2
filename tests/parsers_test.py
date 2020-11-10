@@ -8,9 +8,9 @@ from gendiff import parsers
 def test_json_parse():
     json_data = """
     {
-    "host": "hexlet.io",
-    "timeout": 50,
-    "proxy": "123.234.53.22"
+        "host": "hexlet.io",
+        "timeout": 50,
+        "proxy": "123.234.53.22"
     }
     """
     expected = {
@@ -23,15 +23,15 @@ def test_json_parse():
 
 
 def test_yaml_parse():
-    yaml_data """
-    host: hexlet.io
-    timeout: 50
-    proxy: "123.234.53.22"
+    yaml_data = """
+            host: hexlet.io
+            timeout: 50
+            proxy: "123.234.53.22"
     """
     expected = {
         'host': 'hexlet.io',
         'timeout': 50,
-        'proxy': '123.234.53.22'
+        'proxy': '123.234.53.22',
     }
 
     assert parsers.parse('yaml', yaml_data) == expected
