@@ -11,6 +11,8 @@ selfcheck:
 check:	
 	@test lint
 
+test-with-coverage:
+	poetry run pytest --cov=gendiff tests  --cov-report xml
 
 build: check
 	@poetry build
