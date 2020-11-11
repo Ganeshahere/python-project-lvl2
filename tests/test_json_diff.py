@@ -50,7 +50,7 @@ def test_dict_diff():
     diff = diff_dict(first, second)
 
     assert diff == {
-       'common': {
+        'common': {
             'type': PARENT,
             'children': {
                 'setting1': {
@@ -103,31 +103,58 @@ def test_dict_diff():
     }
 
 
-def test_json_difference(expected_message):
+def test_text_json_diff(expected_text_result):
     difference = generate_diff(
         'tests/fixtures/before.json',
-        'tests/fixtures/after.json'
+        'tests/fixtures/after.json',
+        format_result='text',
     )
-    assert difference.split('\n') == expected_message
+    assert difference.split('\n') == expected_text_result
 
 
-def test_yaml_difference(expected_message):
+def test_json_difference(expected_text_result):
+    difference = generate_diff(
+        'tests/fixtures/before.json',
+        'tests/fixtures/after.json',
+        format_result='text',
+    )
+    assert difference.split('\n') == expected_text_result
+
+
+def test_yaml_difference(expected_text_result):
     difference = generate_diff(
         'tests/fixtures/before.yaml',
         'tests/fixtures/after.yaml',
+        format_result='text',
     )
-    assert difference.split('\n') == expected_message
+    assert difference.split('\n') == expected_text_result
 
 
-def test_json_yaml_diff(expected_message):
+def test_json_yaml_diff(expected_text_result):
     difference = generate_diff(
         'tests/fixtures/before.json',
         'tests/fixtures/after.yaml',
+        format_result='text',
     )
-    assert difference.split('\n') == expected_message
+    assert difference.split('\n') == expected_text_result
+
+
+def test_build_json_diff(expected_build_result):
+    difference = generate_diff(
+        'tests/fixtures/before.json',
+        'tests/fixtures/after.json',
+        format_result='build',
+    )
+    assert sorted(difference.split('\n')) == sorted(expected_build_result)
 
 
 @pytest.fixture
-def expected_message(request):
-    with open('tests/fixtures/expected_message.txt') as file:
+def expected_text_result():
+    with open('tests/fixtures/expected_text.txt') as file:
+        yield file.read().splitlines()
+
+
+@pytest.fixture
+def expected_build_result():
+    with open('tests/fixtures/expected_build.txt') as file:
         yield file.read().splitlines()

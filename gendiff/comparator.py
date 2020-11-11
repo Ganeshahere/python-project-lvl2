@@ -3,7 +3,7 @@
 
 """Functions to build difference."""
 
-from gendiff import formatters, parsers, renderers
+from gendiff import formatters, parsers
 from gendiff.nodetypes import ADDED, CHANGED, PARENT, REMOVED, UNCHANGED
 
 
@@ -47,7 +47,7 @@ def diff_dict(dict1, dict2):
     return {**common, **added, **removed}
 
 
-def generate_diff(path_to_file1: str, path_to_file2: str):
+def generate_diff(path_to_file1: str, path_to_file2: str, format_result: str):
     """Generate message of difference between fwo files."""
     with open(path_to_file1) as first_file:
         first_data = parsers.parse(
@@ -60,7 +60,7 @@ def generate_diff(path_to_file1: str, path_to_file2: str):
             second_file.read(),
         )
     diff = diff_dict(first_data, second_data)
-    return renderers.build(diff)
+    return formatters.format_ast(diff, format_result)
 
 
 def _format_data(path_to_file):
