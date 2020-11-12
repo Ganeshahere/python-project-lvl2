@@ -23,7 +23,7 @@ def _message_lines(diff, parents=None):
             )
         if node['type'] == CHANGED:
             lines.append(
-                "property '{key}' was changed. From '{old}' to {new}'".format(
+                "Property '{key}' was changed. From '{old}' to '{new}'".format(
                     key=_get_path(parents, key),
                     old=_get_value(node['oldValue']),
                     new=_get_value(node['value']),
@@ -31,7 +31,10 @@ def _message_lines(diff, parents=None):
             )
         if node['type'] == ADDED:
             lines.append(
-                f"Property '{_get_path(parents, key)}' was added with value: '{_get_value(node['value'])}'",
+                "Property '{key_path}' was added with value: '{value}'".format(
+                    key_path=_get_path(parents, key),
+                    value=_get_value(node['value']),
+                ),
             )
         if node['type'] == REMOVED:
             lines.append("Property '{key_path}' was removed".format(

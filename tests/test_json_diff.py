@@ -8,7 +8,7 @@ from gendiff.comparator import diff_dict, generate_diff
 from gendiff.nodetypes import ADDED, CHANGED, PARENT, REMOVED, UNCHANGED
 
 
-def test_dict_diff():
+def test_diff_dict():
     first = {
         'common': {
             'setting1': 'Value 1',
@@ -121,7 +121,7 @@ def test_json_difference(expected_text_result):
     assert difference.split('\n') == expected_text_result
 
 
-def test_yaml_difference(expected_text_result):
+def test_yaml_diff(expected_text_result):
     difference = generate_diff(
         'tests/fixtures/before.yaml',
         'tests/fixtures/after.yaml',

@@ -7,48 +7,48 @@ from gendiff import formatters, parsers
 from gendiff.nodetypes import ADDED, CHANGED, PARENT, REMOVED, UNCHANGED
 
 
-def diff_dict(dict1, dict2):
-    """Difference between first and second dicts."""
-    first_keys = dict1.keys()
-    second_keys = dict2.keys()
+def diff_dict(first, second):
+    """Diff between first and second dicts."""
+    first_keys = first.keys()
+    second_keys = second.keys()
 
     add_keys = second_keys - first_keys
     remove_keys = first_keys - second_keys
     common_keys = first_keys & second_keys
 
     added = {
-        key: {'type': ADDED, 'value': dict2[key]}
+        key: {'type': ADDED, 'value': second[key]}
         for key in add_keys
     }
     removed = {
-        key: {'type': REMOVED, 'value': dict1[key]}
+        key: {'type': REMOVED, 'value': first[key]}
         for key in remove_keys
     }
 
     common = {}
     for key in common_keys:
-        if dict1[key] == dict2[key]:
+        if first[key] == second[key]:
             common[key] = {
                 'type': UNCHANGED,
-                'value': dict2[key],
+                'value': second[key],
             }
-        elif isinstance(dict1[key], dict) and isinstance(dict2[key], dict):
+        elif isinstance(first[key], dict) and isinstance(second[key], dict):
             common[key] = {
                 'type': PARENT,
-                'children': diff_dict(dict1[key], dict2[key]),
+                'children': diff_dict(first[key], second[key]),
             }
         else:
             common[key] = {
                 'type': CHANGED,
-                'value': dict2[key],
-                'oldValue': dict1[key],
+                'value': second[key],
+                'oldValue': first[key],
             }
 
     return {**common, **added, **removed}
 
 
 def generate_diff(path_to_file1: str, path_to_file2: str, format_result: str):
-    """Generate message of difference between fwo files."""
+    """Generate message different two files."""
     with open(path_to_file1) as first_file:
         first_data = parsers.parse(
             _format_data(path_to_file1),
@@ -59,6 +59,7 @@ def generate_diff(path_to_file1: str, path_to_file2: str, format_result: str):
             _format_data(path_to_file2),
             second_file.read(),
         )
+
     diff = diff_dict(first_data, second_data)
     return formatters.format_ast(diff, format_result)
 
