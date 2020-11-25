@@ -104,48 +104,39 @@ def test_diff_dict():
 
 
 def test_text_json_diff(expected_text_result):
-    difference = generate_diff(
+    diff = generate_diff(
         'tests/fixtures/before.json',
         'tests/fixtures/after.json',
         format_result='text',
     )
-    assert difference.split('\n') == expected_text_result
-
-
-def test_json_difference(expected_text_result):
-    difference = generate_diff(
-        'tests/fixtures/before.json',
-        'tests/fixtures/after.json',
-        format_result='text',
-    )
-    assert difference.split('\n') == expected_text_result
+    assert diff.split('\n') == expected_text_result
 
 
 def test_yaml_diff(expected_text_result):
-    difference = generate_diff(
+    diff = generate_diff(
         'tests/fixtures/before.yaml',
         'tests/fixtures/after.yaml',
         format_result='text',
     )
-    assert difference.split('\n') == expected_text_result
+    assert diff.split('\n') == expected_text_result
 
 
 def test_json_yaml_diff(expected_text_result):
-    difference = generate_diff(
+    diff = generate_diff(
         'tests/fixtures/before.json',
         'tests/fixtures/after.yaml',
         format_result='text',
     )
-    assert difference.split('\n') == expected_text_result
+    assert diff.split('\n') == expected_text_result
 
 
 def test_build_json_diff(expected_build_result):
-    difference = generate_diff(
+    diff = generate_diff(
         'tests/fixtures/before.json',
         'tests/fixtures/after.json',
         format_result='build',
     )
-    assert sorted(difference.split('\n')) == sorted(expected_build_result)
+    assert sorted(diff.split('\n')) == sorted(expected_build_result)
 
 
 @pytest.fixture
