@@ -5,7 +5,7 @@ from gendiff.nodetypes import ADDED, CHANGED, PARENT, REMOVED
 
 
 def format_ast(diff):
-    """Build message diff from diff_ast function result."""
+    """Plain message diff from diff_ast function result."""
     return _message_lines(diff)
 
 
@@ -23,23 +23,15 @@ def _message_lines(diff, parents=None):
             )
         if node['type'] == CHANGED:
             lines.append(
-                "Property '{key}' was changed. From '{old}' to '{new}'".format(
-                    key=_get_path(parents, key),
-                    old=_get_value(node['oldValue']),
-                    new=_get_value(node['value']),
-                ),
+                f"Property '{_get_path(parents, key)}' was changed. From '{_get_value(node['oldValue'])}'\
+                 to '{_get_value(node['value'])}'",
             )
         if node['type'] == ADDED:
             lines.append(
-                "Property '{key_path}' was added with value: '{value}'".format(
-                    key_path=_get_path(parents, key),
-                    value=_get_value(node['value']),
-                ),
+                f"Property '{_get_path(parents, key)}' was added with value: '{_get_value(node['value'])}'",
             )
         if node['type'] == REMOVED:
-            lines.append("Property '{key_path}' was removed".format(
-                key_path=_get_path(parents, key),
-            ))
+            lines.append(f"Property '{_get_path(parents, key)}' was removed")
     return '\n'.join(lines)
 
 
