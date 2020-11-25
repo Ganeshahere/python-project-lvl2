@@ -1,13 +1,14 @@
 # -*- coding:utf-8 -*-
 
-"""Renderers from diff dict."""
-
+"""Module with renderers from diff_ast."""
 from gendiff.nodetypes import ADDED, CHANGED, PARENT, REMOVED, UNCHANGED
 
 
 def format_ast(diff_ast):
     """Test message diff from diff_ast function result."""
-    return f'{{\n{_message_lines(diff_ast)}\n}}'
+    return '{{\n{lines}\n}}'.format(
+        lines=_message_lines(diff_ast),
+    )
 
 
 def _message_lines(diff_ast, depth=0):
@@ -16,11 +17,7 @@ def _message_lines(diff_ast, depth=0):
         node = diff_ast[key]
         if node['type'] == PARENT:
             children = _message_lines(node['children'], depth=depth + 1)
-            line = '    {prefix}{key}: {{\n{children}\n    {prefix}}}'.format(
-                children=children,
-                key=key,
-                prefix=_get_prefix(depth),
-            )
+            line = f'    {_get_prefix(depth)}{key}: {{\n{children}\n    {_get_prefix(depth)}}}'
         if node['type'] == CHANGED:
             line = '{added}\n{removed}'.format(
                 added=_get_build_message(
@@ -72,10 +69,10 @@ def _get_value(value, depth):
 
 
 def _value_dict(sub_dict, depth):
-    result = []
+    res = []
     for key, value in sub_dict.items():
-        result.append(f'{{\n    {_get_prefix(depth)}{key}: {value}\n{_get_prefix(depth)}}}')
-    return '\n'.join(result)
+        res.append(f'{{\n    {_get_prefix(depth)}{key}: {value}\n{_get_prefix(depth)}}}')
+    return '\n'.join(res)
 
 
 def _get_prefix(depth):
