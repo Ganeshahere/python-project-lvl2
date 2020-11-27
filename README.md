@@ -8,8 +8,15 @@
 [![asciicast](https://asciinema.org/a/eHhdZ3avtxqhdA8mhhduKWItl.svg)](https://asciinema.org/a/eHhdZ3avtxqhdA8mhhduKWItl)
 ## Description ##
 This cli utility compares two yaml or json extesnsion files and outputs difference between them.
-## Diff between two files (json or yaml) with text format output ##
+## Difference between two files (json or yaml) with text format output ##
     gendiff before.json after.yaml
 or 
 
     gendiff before.json after.yaml --format text
+[![asciicast](https://asciinema.org/a/43ZSngpdKCtvZ3JifYkc0MbwI.svg)](https://asciinema.org/a/43ZSngpdKCtvZ3JifYkc0MbwI)
+## Difference between two files (json or yaml) with plain(build) format output ##
+    gendiff before.json after.yaml --format build
+[![asciicast](https://asciinema.org/a/0BnEMyJ48QHIWNPX47BoZORqd.svg)](https://asciinema.org/a/0BnEMyJ48QHIWNPX47BoZORqd)
+## Difference between two files (json or yaml) with json format output ##
+    gendiff before.json after.yaml --format json
+[![asciicast](https://asciinema.org/a/sLRQHc6fUqnLdosE5rmQ43e8O.svg)](https://asciinema.org/a/sLRQHc6fUqnLdosE5rmQ43e8O)
