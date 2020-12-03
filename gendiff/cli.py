@@ -6,7 +6,7 @@ import argparse
 from comparator import generate_diff
 from gendiff.formatters import json, stylish, plain
 
-_FORMARS = {
+_FORMATS = {
     'json': json.format_ast,
     'plain': plain.format_ast,
     'stylish': stylish.format_ast,
