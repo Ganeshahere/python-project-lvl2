@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "Ganeshahere_gendiff_lvl2"
-version = "0.8.0"
+version = "0.8.2"
 description = "This is second python project at my studying at hexlet"
 authors = ["Ganeshahere <jamper1488@gmail.com>"]
 packages = [
@@ -8,13 +8,13 @@ packages = [
 ]
 [tool.poetry.dependencies]
 python = "^3.6"
-pytest = "^6.1.2"
 PyYAML = "^5.3.1"
-pytest-cov = "^2.10.1"git
+
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.8.4"
-
+pytest-cov = "^2.10.1"
+pytest = "^6.1.2"
 
 [tool.poetry.scripts]
 gendiff = "gendiff.scripts.gendiff:main"

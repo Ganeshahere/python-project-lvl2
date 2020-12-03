@@ -8,38 +8,38 @@ import json
 from gendiff.comparator import generate_diff
 
 
-def test_text_json_diff(expected_text_result):
+def test_text_json_diff(expected_stylish_result):
     diff = generate_diff(
         'tests/fixtures/before.json',
         'tests/fixtures/after.json',
-        format_result='text',
+        format_result='stylish',
     )
-    assert diff.split('\n') == expected_text_result
+    assert diff.split('\n') == expected_stylish_result
 
 
-def test_yaml_diff(expected_text_result):
+def test_yaml_diff(expected_stylish_result):
     diff = generate_diff(
         'tests/fixtures/before.yaml',
         'tests/fixtures/after.yaml',
-        format_result='text',
+        format_result='stylish',
     )
-    assert diff.split('\n') == expected_text_result
+    assert diff.split('\n') == expected_stylish_result
 
 
-def test_json_yaml_diff(expected_text_result):
+def test_json_yaml_diff(expected_stylish_result):
     diff = generate_diff(
         'tests/fixtures/before.json',
         'tests/fixtures/after.yaml',
-        format_result='text',
+        format_result='stylish',
     )
-    assert diff.split('\n') == expected_text_result
+    assert diff.split('\n') == expected_stylish_result
 
 
 def test_plain_format(expected_plain_result):
     diff = generate_diff(
         'tests/fixtures/before.json',
         'tests/fixtures/after.json',
-        format_result='build',
+        format_result='plain',
     )
     assert sorted(diff.split('\n')) == sorted(expected_plain_result)
 
@@ -54,14 +54,14 @@ def test_json_format(expected_json_result):
 
 
 @pytest.fixture
-def expected_text_result():
-    with open('tests/fixtures/expected_text.txt') as file:
+def expected_stylish_result():
+    with open('tests/fixtures/expected_stylish.txt') as file:
         yield file.read().splitlines()
 
 
 @pytest.fixture
 def expected_plain_result():
-    with open('tests/fixtures/expected_build.txt') as file:
+    with open('tests/fixtures/expected_plain.txt') as file:
         yield file.read().splitlines()
 
 

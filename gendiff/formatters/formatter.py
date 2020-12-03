@@ -1,12 +1,12 @@
 # -*- coding:utf-8 -*-
 
 """Render facade module."""
-from gendiff.formatters import build, text, json
+from gendiff.formatters import plain, stylish, json
 
 formats = {
     'json': lambda ast: json.format_ast(ast),
-    'text': lambda ast: text.format_ast(ast),
-    'build': lambda ast: build.format_ast(ast),
+    'stylish': lambda ast: stylish.format_ast(ast),
+    'plain': lambda ast: plain.format_ast(ast),
 }
 
 

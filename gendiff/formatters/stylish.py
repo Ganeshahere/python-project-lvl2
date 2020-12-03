@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 
 """Module with renderers from diff_ast."""
-from gendiff.nodetypes import ADDED, CHANGED, PARENT, REMOVED, UNCHANGED
+from gendiff.constants import ADDED, CHANGED, PARENT, REMOVED, UNCHANGED
 
 
 def format_ast(diff_ast):

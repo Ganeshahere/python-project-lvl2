@@ -1,7 +1,7 @@
 # -*- coding utf-8 -*-
 
 from gendiff.comparator import diff_dict
-from gendiff.nodetypes import ADDED, CHANGED, PARENT, REMOVED, UNCHANGED
+from gendiff.constants import ADDED, CHANGED, PARENT, REMOVED, UNCHANGED
 
 
 def test_ast_build():

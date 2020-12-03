@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """Building formatter from diff ast."""
-from gendiff.nodetypes import ADDED, CHANGED, PARENT, REMOVED
+from gendiff.constants import ADDED, CHANGED, PARENT, REMOVED
 
 
 def format_ast(diff):

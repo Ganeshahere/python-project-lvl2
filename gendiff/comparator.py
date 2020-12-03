@@ -4,7 +4,7 @@
 """Functions to build difference."""
 
 from gendiff import formatters, parsers
-from gendiff.nodetypes import ADDED, CHANGED, PARENT, REMOVED, UNCHANGED
+from gendiff.constants import ADDED, CHANGED, PARENT, REMOVED, UNCHANGED
 
 
 def diff_dict(first, second):
