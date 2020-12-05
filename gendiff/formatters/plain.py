@@ -4,7 +4,7 @@
 from gendiff.constants import ADDED, CHANGED, PARENT, REMOVED
 
 
-def format_ast(diff):
+def render(diff):
     """Build message diff from diff_ast function result."""
     return _message_lines(diff)
 

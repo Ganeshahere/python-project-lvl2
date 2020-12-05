@@ -7,9 +7,9 @@ from comparator import generate_diff
 from gendiff.formatters import json, stylish, plain
 
 _FORMATS = {
-    'json': json.format_ast,
-    'plain': plain.format_ast,
-    'stylish': stylish.format_ast,
+    'json': json.render,
+    'plain': plain.render,
+    'stylish': stylish.render,
 }
 
 parser = argparse.ArgumentParser(description='Generate diff')

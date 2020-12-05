@@ -4,9 +4,9 @@
 from gendiff.formatters import plain, stylish, json
 
 formats = {
-    'json': lambda ast: json.format_ast(ast),
-    'stylish': lambda ast: stylish.format_ast(ast),
-    'plain': lambda ast: plain.format_ast(ast),
+    'json': lambda ast: json.render(ast),
+    'stylish': lambda ast: stylish.render(ast),
+    'plain': lambda ast: plain.render(ast),
 }
 
 

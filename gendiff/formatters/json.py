@@ -6,7 +6,7 @@ import json
 from gendiff.constants import PARENT
 
 
-def format_ast(diff_ast):
+def render(diff_ast):
     """Test message diff from diff_ast function result."""
     filtered_ast = _build_ast(diff_ast)
     return json.dumps(filtered_ast)
