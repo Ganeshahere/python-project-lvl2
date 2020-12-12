@@ -2,28 +2,27 @@
 
 """Module for parsing raw files to dict."""
 import json
-
+import os
 import yaml
 
-parsers = {
-    'json': lambda data: json.loads(data),
-    'yaml': lambda data: yaml.safe_load(data),
-}
+
+def get_extension(file_path):
+    return os.path.splitext(file_path)[-1][1:]
 
 
-def parse(data_format, raw_data):
-    """Parse raw data to dictionary."""
-    parse_function = _create_parse_function(data_format)
-    return parse_function(raw_data)
+def read_data_from_file(file_path, extension):
+    if extension == 'yaml' or 'yml':
+        with open(file_path) as yaml_file:
+            return yaml.load(yaml_file, Loader=yaml.FullLoader)
+    elif extension == 'json':
+        with open(file_path) as json_file:
+            return json.load(json_file)
 
 
-def _create_parse_function(data_format):
-    if data_format == 'yml':
-        data_format = 'yaml'
+def get_parsed_data(filepath):
+    extension = get_extension(filepath)
+    raw_data = read_data_from_file(filepath, extension)
+    return raw_data
 
-    if data_format not in parsers:
-        raise AttributeError(
-            'Format {format} not supported'.format(format=data_format)
-        )
 
-    return parsers[data_format]
+

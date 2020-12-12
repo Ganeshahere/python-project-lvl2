@@ -1,55 +1,52 @@
 {
   "common": {
-    "setting1": {
-      "type": "unchanged",
-      "value": "Value 1"
-    },
-    "setting2": {
-      "type": "removed",
-      "value": "200"
-    },
-    "setting3": {
-      "type": "unchanged",
-      "value": true
-    },
-    "setting4": {
-      "type": "added",
-      "value": "blah blah"
-    },
-    "setting5": {
-      "type": "added",
-      "value": {
-        "key5": "value5"
+    "type": "parent",
+    "children": {
+      "setting1": {
+        "type": "unchanged",
+        "value": "Value 1"
+      },
+      "setting2": {
+        "type": "removed",
+        "value": "200"
+      },
+      "setting3": {
+        "type": "unchanged",
+        "value": "true"
+      },
+      "setting4": {
+        "type": "added",
+        "value": "blah blah"
+          },
+      "setting5": {
+        "type": "added",
+        "value": {"key5": "value5"}
+      },
+      "setting6": {
+        "type": "removed",
+        "value": {"key": "value"}
+        }
       }
     },
-    "setting6": {
-      "type": "removed",
-      "value": {
-        "key": "value"
-      }
-    }
-  },
   "group1": {
-    "baz": {
-      "type": "changed",
-      "value": "bars",
-      "oldValue": "bas"
-    },
-    "foo": {
-      "type": "unchanged",
-      "value": "bar"
+    "type": "parent",
+    "children": {
+      "baz": {
+        "type": "changed",
+        "value": "bars",
+        "oldValue": "bas"
+      },
+      "foo": {"type": "unchanged", "value": "bar"}
     }
   },
   "group2": {
     "type": "removed",
-    "value": {
-      "abc": "12345"
-    }
-  },
+    "value": {"abc": "12345"}
+    },
   "group3": {
     "type": "added",
-    "value": {
-      "fee": "100500"
-    }
-  }
+    "value": {"fee": "100500"}
+    },
+  "test": {"type": "unchanged", "value": "test"},
+  "foo": {"type": "changed", "value": "baz", "oldValue": "bar"}
 }
