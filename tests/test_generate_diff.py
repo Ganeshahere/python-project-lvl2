@@ -3,6 +3,7 @@
 """Test for function generating difference."""
 
 import pytest
+import json
 from gendiff.comparator import generate_diff
 
 # showing which files used for testcases
@@ -67,4 +68,4 @@ def test_format_json(data_sets, expected_results):
     testcase = 'format_json'
     format = 'json'
     first, second = data_sets(testcase)
-    assert expected_results(testcase) == generate_diff(first, second, format)
+    assert json.loads(expected_results(testcase)) == json.loads(generate_diff(first, second, format))
