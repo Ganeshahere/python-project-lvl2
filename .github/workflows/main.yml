@@ -1,0 +1,7 @@
+- name: Hexlet project action
+  # You may pin to the exact commit or the version.
+  # uses: Hexlet/project-action@ba083f6fc7905693aae26aa7055e9b1a3d1f1391
+  uses: Hexlet/project-action@v2
+  with:
+    # Docker image from original project repository.
+    project_image: 
