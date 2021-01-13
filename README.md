@@ -2,7 +2,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/ab2ec28011aada3650e0/maintainability)](https://codeclimate.com/github/Ganeshahere/python-project-lvl2/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/ab2ec28011aada3650e0/test_coverage)](https://codeclimate.com/github/Ganeshahere/python-project-lvl2/test_coverage)
 [![Build Status](https://travis-ci.org/Ganeshahere/python-project-lvl2.svg?branch=master)](https://travis-ci.org/Ganeshahere/python-project-lvl2)
-[![Actions Status](https://github.com/Ganeshahere/python-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/Deepsick/python-project-lvl2/actions)
+[![Actions Status](https://github.com/Ganeshahere/python-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/Ganeshahere/python-project-lvl2/actions)
 ## Installation: ##
     pip install -i https://test.pypi.org/simple/ ganeshahere-gendiff-lvl2
 [![asciicast](https://asciinema.org/a/eHhdZ3avtxqhdA8mhhduKWItl.svg)](https://asciinema.org/a/eHhdZ3avtxqhdA8mhhduKWItl)
