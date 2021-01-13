@@ -4,7 +4,7 @@
 import json
 import os
 import yaml
-
+import argparse
 
 def get_extension(file_path):
     return os.path.splitext(file_path)[-1][1:]
@@ -24,5 +24,14 @@ def get_parsed_data(filepath):
     raw_data = read_data_from_file(filepath, extension)
     return raw_data
 
-
-
+def get_parser():
+    parser = argparse.ArgumentParser(description='Generate diff')
+    parser.add_argument(
+        '-f',
+        '--format',
+        help='set format of output',
+        default='stylish'
+    )
+    parser.add_argument('first_file')
+    parser.add_argument('second_file')
+    return parser.parse_args()
