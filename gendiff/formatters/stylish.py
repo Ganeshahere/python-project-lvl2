@@ -63,6 +63,11 @@ def _get_build_message(symbol, key, value, depth):
 
 
 def _get_value(value, depth):
+    if value is None:
+        return "null"
+
+    if isinstance(value, bool):
+        return str(value).lower()
     if isinstance(value, dict):
         return _value_dict(value, depth)
     return value
