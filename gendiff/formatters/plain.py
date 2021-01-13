@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """Building formatter from diff ast."""
-from gendiff.constants import ADDED, CHANGED, PARENT, REMOVED
+from gendiff.constants import ADDED, CHANGED, NESTED, REMOVED
 
 
 def render(diff):
@@ -17,7 +17,7 @@ def _message_lines(diff, parents=None):
     for key in sorted(diff.keys()):
         node = diff[key]
 
-        if node['type'] == PARENT:
+        if node['type'] == NESTED:
             lines.append(
                 _message_lines(node['children'], parents=parents + [key]),
             )

@@ -3,7 +3,7 @@
 """Renderers from diff_ast."""
 import json
 
-from gendiff.constants import PARENT
+from gendiff.constants import NESTED
 
 
 def render(diff_ast):
@@ -15,7 +15,7 @@ def render(diff_ast):
 def _build_ast(ast):
     result = {}
     for key, node in ast.items():
-        if node['type'] == PARENT:
+        if node['type'] == NESTED:
             result[key] = _build_ast(node['children'])
         else:
             result[key] = node

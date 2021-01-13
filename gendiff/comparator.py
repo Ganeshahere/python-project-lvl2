@@ -5,7 +5,7 @@
 
 from gendiff import formatters
 from gendiff.parsers import get_parsed_data
-from gendiff.constants import ADDED, CHANGED, PARENT, REMOVED, UNCHANGED
+from gendiff.constants import ADDED, CHANGED, NESTED, REMOVED, UNCHANGED
 
 
 def diff_dict(first, second):
@@ -35,7 +35,7 @@ def diff_dict(first, second):
             }
         elif isinstance(first[key], dict) and isinstance(second[key], dict):
             common[key] = {
-                'type': PARENT,
+                'type': NESTED,
                 'children': diff_dict(first[key], second[key]),
             }
         else:

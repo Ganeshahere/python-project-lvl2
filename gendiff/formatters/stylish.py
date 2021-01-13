@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 
 """Module with renderers from diff_ast."""
-from gendiff.constants import ADDED, CHANGED, PARENT, REMOVED, UNCHANGED
+from gendiff.constants import ADDED, CHANGED, NESTED, REMOVED, UNCHANGED
 
 
 def render(diff_ast):
@@ -15,7 +15,7 @@ def _message_lines(diff_ast, depth=0):
     lines = []
     for key in sorted(diff_ast.keys()):
         node = diff_ast[key]
-        if node['type'] == PARENT:
+        if node['type'] == NESTED:
             children = _message_lines(node['children'], depth=depth + 1)
             line = f'    {_get_prefix(depth)}{key}: {{\n{children}\n    {_get_prefix(depth)}}}'
         if node['type'] == CHANGED:
