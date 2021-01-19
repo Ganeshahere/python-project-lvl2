@@ -48,7 +48,7 @@ def diff_dict(first, second):
     return {**common, **added, **removed}
 
 
-def generate_diff(path_to_file1: str, path_to_file2: str, format_result: str):
+def generate_diff(path_to_file1: str, path_to_file2: str, format_result="stylish"):
     """Generate message different two files."""
     first_data = get_parsed_data(path_to_file1)
     second_data = get_parsed_data(path_to_file2)
