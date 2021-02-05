@@ -1,8 +1,8 @@
 [tool.poetry]
-name = "hexlet_code"
+name = "hexlet-code"
 version = "0.8.2"
 description = "This is second python project at my studying at hexlet"
-authors = ["Ganeshahere <jamper1488@gmail.com>"]
+authors = ["Ganeshahere <jamper1488@gmail.com>"]c
 packages = [
     { include = "gendiff" },
 ]
