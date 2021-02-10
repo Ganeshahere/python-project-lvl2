@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
+from gendiff.formatters.renderers import RENDERERS
 
-"""Formatters module."""
-from gendiff.formatters.formatter import format_ast
-
-__all__ = ['format_ast']
+__all__ = (  # noqa: WPS410
+    'RENDERERS',
+)

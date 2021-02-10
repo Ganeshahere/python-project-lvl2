@@ -1,6 +1,7 @@
-# -*- coding:utf-8 -*-
+from gendiff.diff import generate_diff
+from gendiff.loading import load
 
-"""Gendiff base module."""
-from gendiff.comparator import generate_diff
-
-__all__ = ['generate_diff']
+__all__ = (  # noqa: WPS410
+    'generate_diff',
+    'load',
+)

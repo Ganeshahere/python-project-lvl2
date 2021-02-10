@@ -1,84 +1,54 @@
-# -*- coding:utf-8 -*-
-
-"""Module with renderers from diff_ast."""
-from gendiff.constants import ADDED, CHANGED, NESTED, REMOVED, UNCHANGED
-
-
-def render(diff_ast):
-    """Test message diff from diff_ast function result."""
-    return '{{\n{lines}\n}}'.format(
-        lines=_message_lines(diff_ast),
-    )
+def deconstruct_value(item):
+    if isinstance(item, tuple):
+        return item[:2]
+    return None, item
 
 
-def _message_lines(diff_ast, depth=0):
-    lines = []
-    for key in sorted(diff_ast.keys()):
-        node = diff_ast[key]
-        if node['type'] == NESTED:
-            children = _message_lines(node['children'], depth=depth + 1)
-            line = f'    {_get_prefix(depth)}{key}: {{\n{children}\n    {_get_prefix(depth)}}}'
-        if node['type'] == CHANGED:
-            line = '{added}\n{removed}'.format(
-                added=_get_build_message(
-                    symbol='+',
-                    key=key,
-                    value=node['value'],
-                    depth=depth,
-                ),
-                removed=_get_build_message(
-                    symbol='-',
-                    key=key,
-                    value=node['oldValue'],
-                    depth=depth,
-                ),
-            )
-        if node['type'] == UNCHANGED:
-            line = _get_build_message(
-                symbol=' ',
-                key=key,
-                value=node['value'],
-                depth=depth,
-            )
-        if node['type'] == ADDED:
-            line = _get_build_message(
-                symbol='+',
-                key=key,
-                value=node['value'],
-                depth=depth,
-            )
-        if node['type'] == REMOVED:
-            line = _get_build_message(
-                symbol='-',
-                key=key,
-                value=node['value'],
-                depth=depth,
-            )
-        lines.append(line)
-    return '\n'.join(lines)
+def convert(value):
+    if value is False:
+        convert_value = 'false'
+    elif value is True:
+        convert_value = 'true'
+    elif value is None:
+        convert_value = 'null'
+    else:
+        convert_value = value
+    return convert_value
 
 
-def _get_build_message(symbol, key, value, depth):
-    return f'{_get_prefix(depth)}  {symbol} {key}: {_get_value(value, depth + 1)}'
+def create_content(input, lvl):
+    if isinstance(input, dict):
+        return render(input, lvl + 1)
+    return convert(input)
 
 
-def _get_value(value, depth):
-    if value is None:
-        return "null"
+def render(diff_dict, lvl=0):
+    result = []
+    tab = '    ' * lvl
 
-    if isinstance(value, bool):
-        return str(value).lower()
-    if isinstance(value, dict):
-        return _value_dict(value, depth)
-    return value
+    for key, value in diff_dict.items():
+        state, data = deconstruct_value(value)
+        content = create_content(data, lvl)
 
+        if state == 'NESTED':
+            result.append(tab + '    {}: {}'.format(
+                key,
+                render(data, lvl + 1)
+            ))
 
-def _value_dict(sub_dict, depth):
-    res = []
-    for key, value in sub_dict.items():
-        res.append(f'{{\n    {_get_prefix(depth)}{key}: {value}\n{_get_prefix(depth)}}}')
-    return '\n'.join(res)
+        elif state == 'ADDED':
+            result.append(tab + '  + {}: {}'.format(key, content))
 
+        elif state == 'REMOVED':
+            result.append(tab + '  - {}: {}'.format(key, content))
 
-def _get_prefix(depth):
-    return '    ' * depth
+        elif state == 'CHANGED':
+            old_content = content
+            new_content = create_content(value[2], lvl)
+            result.append(tab + '  - {}: {}'.format(key, old_content))
+            result.append(tab + '  + {}: {}'.format(key, new_content))
+
+        else:
+            result.append(tab + '    {}: {}'.format(key, content))
+
+    return '{\n' + '\n'.join(result) + '\n{}}}'.format(tab)

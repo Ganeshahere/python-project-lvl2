@@ -1,53 +1,43 @@
-# -*- coding: utf-8 -*-
-
-"""Building formatter from diff ast."""
-from gendiff.constants import ADDED, CHANGED, NESTED, REMOVED
+from gendiff.formatters.stylish import deconstruct_value, convert
 
 
-def render(diff):
-    """Build message diff from diff_ast function result."""
-    return _message_lines(diff)
+def create_content(input):
+    if isinstance(input, dict):
+        return '[complex value]'
+    elif isinstance(input, str):
+        return "\'{}\'".format(input)
+    return convert(input)
 
 
-def _message_lines(diff, parents=None):
-    if not parents:
-        parents = []
+def render(diff_dict, lvl=''):
+    result = []
 
-    lines = []
-    for key in sorted(diff.keys()):
-        node = diff[key]
+    for key, value in diff_dict.items():
+        state, data = deconstruct_value(value)
+        content = create_content(data)
 
-        if node['type'] == NESTED:
-            lines.append(
-                _message_lines(node['children'], parents=parents + [key]),
+        if state == 'NESTED':
+            result.append(render(data, lvl + '{}.'.format(key)))
+
+        elif state == 'ADDED':
+            result.append("Property '{}' was added with value: {}".format(
+                lvl + key,
+                content)
             )
-        if node['type'] == CHANGED:
-            lines.append(
-                "Property '{key}' was changed. From '{old}' to '{new}'".format(
-                    key=_get_path(parents, key),
-                    old=_get_value(node['oldValue']),
-                    new=_get_value(node['value']),
-                ),
+
+        elif state == 'REMOVED':
+            result.append("Property '{}' was removed".format(lvl + key))
+
+        elif state == 'CHANGED':
+            old_content = content
+            new_content = create_content(value[2])
+            result.append("Property '{}' was updated. From {} to {}".format(
+                lvl + key,
+                old_content,
+                new_content)
             )
-        if node['type'] == ADDED:
-            lines.append(
-                "Property '{key_path}' was added with value: '{value}'".format(
-                    key_path=_get_path(parents, key),
-                    value=_get_value(node['value']),
-                ),
-            )
-        if node['type'] == REMOVED:
-            lines.append("Property '{key_path}' was removed".format(
-                key_path=_get_path(parents, key),
-            ))
-    return '\n'.join(lines)
 
+        else:
+            continue
 
-def _get_value(value):
-    if isinstance(value, dict):
-        return 'complex value'
-    return value
-
-
-def _get_path(parents, key):
-    return '.'.join(parents + [key])
+    return '\n'.join(result)
